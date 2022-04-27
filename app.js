@@ -1,4 +1,3 @@
-
 // express
 const express = require("express");
 const app = express();
@@ -30,10 +29,11 @@ app.post("/createAuthLink", cors(), (req, res) => {
       "https://www.googleapis.com/auth/userinfo.email",
       //calendar api scopes]
       "https://www.googleapis.com/auth/calendar",
-      "https://www.googleapis.com/auth/contacts"
+      "https://www.googleapis.com/auth/contacts",
     ],
     prompt: "consent",
   });
+
   res.send({ url });
 });
 
@@ -49,9 +49,14 @@ app.get("/handleGoogleRedirect", async (req, res) => {
     }
     const accessToken = tokens.access_token;
     const refreshToken = tokens.refresh_token;
+    
+
+    /*res.redirect(
+      `http://localhost:3000?accessToken=${accessToken}&refreshToken=${refreshToken}`
+    );*/ //original
 
     res.redirect(
-      `http://localhost:3000?accessToken=${accessToken}&refreshToken=${refreshToken}`
+      `https://creatorapp.zoho.com/daniel4354/crm-dev-2/#Page:succes_Auth_Bidi?accessToken=${accessToken}&refreshToken=${refreshToken}`
     );
   });
 });
@@ -85,4 +90,3 @@ app.post("/getValidToken", async (req, res) => {
 app.listen(process.env.PORT || 8080, () => {
   console.log("listening on port 8080");
 });
-
