@@ -18,7 +18,7 @@ const { google } = require("googleapis");
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
-  "https://node-server-get-google-tokens.herokuapp.com/handleGoogleRedirect" // server redirect url handler
+  "http:localhost:8080/handleGoogleRedirect" // server redirect url handler
 );
 const fetch = require("node-fetch");
 
@@ -49,14 +49,23 @@ app.get("/handleGoogleRedirect", async (req, res) => {
     }
     const accessToken = tokens.access_token;
     const refreshToken = tokens.refresh_token;
-    
 
     /*res.redirect(
       `http://localhost:3000?accessToken=${accessToken}&refreshToken=${refreshToken}`
     );*/ //original
 
+    let oauth2Client = new google.auth.OAuth2(); // create new auth client
+    oauth2Client.setCredentials({ access_token: tokens.access_token }); // use the new auth client with the access_token
+    let oauth2 = google.oauth2({
+      auth: oauth2Client,
+      version: "v2",
+    });
+
+    let { data } = await oauth2.userinfo.get();    // get user info
+    const miEmail = data.email;
+
     res.redirect(
-      `https://creatorapp.zoho.com/daniel4354/crm-dev-2/#Page:succes_Auth_Bidi?accessToken=${accessToken}&refreshToken=${refreshToken}`
+      `https://creatorapp.zoho.com/daniel4354/crm-dev-2/#Page:succes_Auth_Bidi?accessToken=${accessToken}&refreshToken=${refreshToken}&miEmail=${miEmail}`
     );
   });
 });
