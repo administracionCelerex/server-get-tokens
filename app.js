@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 // dotenv (ommit in heorku  )
-//require("dotenv").config();
+require("dotenv").config();
 // body parser
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -54,10 +54,10 @@ app.get("/handleGoogleRedirect", async (req, res) => {
       `http://localhost:3000?accessToken=${accessToken}&refreshToken=${refreshToken}`
     );*/ //original
 
-    let oauth2Client = new google.auth.OAuth2(); // create new auth client
-    oauth2Client.setCredentials({ access_token: tokens.access_token }); // use the new auth client with the access_token
+    let oauth2Client2 = new google.auth.OAuth2(); // create new auth client
+    oauth2Client2.setCredentials({ access_token: accessToken }); // use the new auth client with the access_token
     let oauth2 = google.oauth2({
-      auth: oauth2Client,
+      auth: oauth2Client2,
       version: "v2",
     });
 
