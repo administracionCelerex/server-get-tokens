@@ -42,7 +42,7 @@ app.get("/handleGoogleRedirect", async (req, res) => {
   const code = req.query.code;
   console.log("server 36 | code", code);
   // get access token
-  oauth2Client.getToken(code, (err, tokens) => {
+  oauth2Client.getToken(code, async (err, tokens) => {
     if (err) {
       console.log("server 39 | error", err);
       throw new Error("Issue with Login", err.message);
@@ -61,7 +61,7 @@ app.get("/handleGoogleRedirect", async (req, res) => {
       version: "v2",
     });
 
-    let { data } = await oauth2.userinfo.get();    // get user info
+    let { data } = await oauth2.userinfo.get(); // get user info
     const miEmail = data.email;
 
     res.redirect(
