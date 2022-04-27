@@ -1,8 +1,8 @@
 // express
 const express = require("express");
 const app = express();
-// dotenv
-require("dotenv").config();
+// dotenv (ommit in heorku)
+//require("dotenv").config();
 // body parser
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
