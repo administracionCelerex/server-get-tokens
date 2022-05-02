@@ -65,7 +65,7 @@ app.get("/handleGoogleRedirect", async (req, res) => {
     const miEmail = data.email;
 
     res.redirect(
-      `${proccess.env.REDIRECTPAGE}?accessToken=${accessToken}&refreshToken=${refreshToken}&miEmail=${miEmail}&codeGmail=${code}`
+      `${process.env.REDIRECTPAGE}?accessToken=${accessToken}&refreshToken=${refreshToken}&miEmail=${miEmail}&codeGmail=${code}`
     );
   });
 });
