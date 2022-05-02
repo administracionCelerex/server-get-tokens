@@ -65,7 +65,7 @@ app.get("/handleGoogleRedirect", async (req, res) => {
     const miEmail = data.email;
 
     res.redirect(
-      `https://creatorapp.zoho.com/daniel4354/crm-dev-2/#Page:succes_Auth_Bidi?accessToken=${accessToken}&refreshToken=${refreshToken}&miEmail=${miEmail}`
+      `${proccess.env.REDIRECTPAGE}?accessToken=${accessToken}&refreshToken=${refreshToken}&miEmail=${miEmail}&codeGmail=${code}`
     );
   });
 });
